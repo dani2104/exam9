@@ -27,7 +27,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 new UsernameNotFoundException("user is invalid"));
         HttpSession session = request.getSession();
         session.setAttribute("user", theUser);
-        response.sendRedirect(request.getContextPath() + "/");
+        response.sendRedirect(request.getContextPath() + "/themes");
     }
 
 }

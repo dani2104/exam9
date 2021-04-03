@@ -24,10 +24,13 @@ public class LoginController {
         return "access-denied";
 
     }
-
+@GetMapping("/user")
+public String profile(){
+        return "user";
+}
     @GetMapping("/")
     public String showHome() {
-        return "home";
+        return "redirect:/themes";
     }
 
 }
