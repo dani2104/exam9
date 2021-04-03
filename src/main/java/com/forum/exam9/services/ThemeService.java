@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class ThemeService {
@@ -20,9 +21,9 @@ public class ThemeService {
     }
     public Page<Theme> findPaginated(int pageNo) {
         String sortField="date";
-        String sortDirection="ASC";
-        var sort=Sort.by(sortField,sortDirection);
-        Pageable pageable=PageRequest.of(pageNo-1,10,sort);
+        Sort sort=Sort.by(sortField);
+        var sort1=sort.descending();
+        Pageable pageable=PageRequest.of(pageNo-1,5,sort1);
         return themeRepository.findAll(pageable);
     }
     @Transactional
@@ -30,4 +31,14 @@ public class ThemeService {
         theme.setDate(LocalDate.now());
         return themeRepository.save(theme);
     }
+    public Theme findById(Long id){
+        return themeRepository.findById(id).orElseThrow(()->new RuntimeException("no theme"));
+    }
+    public List<Theme> findAll(){
+        return themeRepository.findAll();
+    }
+    public void deleteAll(){
+        themeRepository.deleteAll();
+    }
+
 }
