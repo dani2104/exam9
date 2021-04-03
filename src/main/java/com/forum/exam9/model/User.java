@@ -40,7 +40,7 @@ public class User extends BasicEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return getUsername();
+        return userName;
     }
 
     @Override
