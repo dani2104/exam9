@@ -11,10 +11,10 @@
 <div class="container my-2">
     <a th:href="@{/themes}">Back to Themes</a>
     <div sec:authorize="isAuthenticated()">
-    <form th:action="@{/logout}"
-          method="POST">
-        <input type="submit" value="Logout"/>
-    </form>
+        <form th:action="@{/logout}"
+              method="POST">
+            <input type="submit" value="Logout"/>
+        </form>
     </div>
 
     <div sec:authorize="isAnonymous()">
@@ -39,18 +39,14 @@
 
     <h1>Comments List</h1>
 
-    <div class="comments">
-        <table border="1" class="table table-striped table-responsive-md">
-            <tbody class="comments">
-            <tr th:each="com : ${listComments}">
-                <td>
-                    <span th:text="${com.date}"></span>
-                    <span style="padding-right: 100px" th:text="${com.userName}"></span>
-                    <p th:text="${com.text}"></p>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="comment-list">
+        <div th:each="com:${listComments}">
+            <span th:text="${com.date}"></span>
+            <span style="padding-right: 100px" th:text="${com.userName}"></span>
+        <p th:text="${com.text}"></p>
+
+        </div>
+
     </div>
 
     <div th:if="${totalPages > 1}">
@@ -111,18 +107,22 @@
     'use strict';
 
     function createComment(data) {
-        let com = document.createElement('tr');
-        com.innerHTML = `<td><span th:text="${data.date}"></span>
+        console.log(data);
+        let com = document.createElement('div');
+        com.innerHTML = `<span th:text="${data.date}"></span>
 <span style="padding-right: 100px" th:text="${data.userName}"></span>
-                <p th:text="${com.text}"></p>
+                <p th:text="${data.text}"></p>`;
 
-</td>`;
+
         return com;
     }
 
     function addComment(com) {
-            document.getElementsByClassName('comments')[0].append(com);
-        }
+        console.log("adding");
+        console.log(com);
+        document.getElementsByClassName('comment-list')[0].append(com);
+    }
+
     async function searchHandler(e) {
         e.preventDefault();
         const form = e.target;
